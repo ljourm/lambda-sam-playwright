@@ -10,11 +10,13 @@
   "author": "",
   "license": "ISC",
   "packageManager": "pnpm@10.19.0",
+  "type": "module",
   "volta": {
     "node": "24.10.0",
     "pnpm": "9.0.0"
   },
   "devDependencies": {
+    "@types/aws-lambda": "^8.10.156",
     "tsx": "^4.20.6",
     "typescript": "^5.9.3"
   }
