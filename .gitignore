@@ -20,9 +20,6 @@ Thumbs.db
 .env
 .env.*
 
-# VSCode
-.vscode/
-
 # Others
 coverage/
 
