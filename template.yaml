@@ -4,13 +4,25 @@ Description: >-
 Transform:
   - AWS::Serverless-2016-10-31
 
+# 独自定義。ESBuildを使ってビルドするための共通設定。
+Metadata: &EsbuildSharedMetadata
+  BuildMethod: esbuild
+  BuildProperties: &EsbuildSharedBuildProperties
+    Format: esm
+    Minify: false
+    Target: es2022
+    OutExtension:
+      - .js=.mjs
+    Sourcemap: true
+
 # Resources declares the AWS resources that you want to include in the stack
 # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resources-section-structure.html
 Resources:
   simpleHandlerFunction:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: src/handlers/simple-handler.handler
+      CodeUri: ./
+      Handler: simple-handler.handler
       Runtime: nodejs22.x
       Architectures:
         - x86_64
@@ -23,6 +35,13 @@ Resources:
           Properties:
             Path: /simple
             Method: GET
+
+    Metadata:
+      <<: *EsbuildSharedMetadata
+      BuildProperties:
+        <<: *EsbuildSharedBuildProperties
+        EntryPoints:
+          - ./src/handlers/simple-handler.ts
 
 # # More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
 Globals:
