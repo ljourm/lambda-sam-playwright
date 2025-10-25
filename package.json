@@ -13,7 +13,7 @@
   "scripts": {
     "lint": "run-p lint:*",
     "lint:js": "eslint",
-    "lint:fmt": "prettier .",
+    "lint:fmt": "prettier --check .",
     "fix": "run-p fix:*",
     "fix:js": "eslint --fix",
     "fix:fmt": "prettier --write ."
