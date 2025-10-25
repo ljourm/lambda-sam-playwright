@@ -8,7 +8,7 @@ import eslintConfigPrettier from "eslint-config-prettier/flat";
 const IGNORE_PATTERNS = [
   "node_modules/",
   "pnpm-lock.yaml",
-  "dest/",
+  "dist/",
   ".aws-sam/",
   "*.log",
   "*.tsbuildinfo",
