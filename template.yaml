@@ -4,7 +4,7 @@ Description: >-
 Transform:
   - AWS::Serverless-2016-10-31
 
-# 独自定義。ESBuildを使ってビルドするための共通設定。
+# ESBuildを使ってビルドするための共通設定
 Metadata: &EsbuildSharedMetadata
   BuildMethod: esbuild
   BuildProperties: &EsbuildSharedBuildProperties
@@ -15,18 +15,53 @@ Metadata: &EsbuildSharedMetadata
       - .js=.mjs
     Sourcemap: true
 
+Parameters:
+  ProjectName:
+    Type: String
+    Default: "lambda-sam-playwright"
+  BucketName:
+    Type: String
+    Default: "lambda-sam-playwright-input-bucket"
+  CreatedBy:
+    Type: String
+    Default: "sam-cli"
+  Env:
+    Type: String
+    AllowedValues:
+      - prd
+      - stg
+
+Globals:
+  Function:
+    MemorySize: 128
+    Runtime: nodejs22.x
+    Tracing: Active
+    Architectures:
+      - arm64
+    CodeUri: ./
+    LoggingConfig:
+      LogFormat: JSON
+    Environment:
+      Variables:
+        ENV: !Ref Env
+    Tags:
+      Project: !Ref ProjectName
+      CreatedBy: !Ref CreatedBy
+  Api:
+    TracingEnabled: true
+
 # Resources declares the AWS resources that you want to include in the stack
 # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resources-section-structure.html
 Resources:
+  S3InputBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Ref BucketName
+
   simpleHandlerFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: ./
       Handler: simple-handler.handler
-      Runtime: nodejs22.x
-      Architectures:
-        - x86_64
-      MemorySize: 128
       Timeout: 10
       Description: Simple handler for local test
       Events:
@@ -35,7 +70,6 @@ Resources:
           Properties:
             Path: /simple
             Method: GET
-
     Metadata:
       <<: *EsbuildSharedMetadata
       BuildProperties:
@@ -43,12 +77,8 @@ Resources:
         EntryPoints:
           - ./src/handlers/simple-handler.ts
 
-# # More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
-Globals:
-  Function:
-    Tracing: Active
-    # You can add LoggingConfig parameters such as the Logformat, Log Group, and SystemLogLevel or ApplicationLogLevel. Learn more here https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-function.html#sam-function-loggingconfig.
-    LoggingConfig:
-      LogFormat: JSON
-  Api:
-    TracingEnabled: true
+  TestFuncLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub /aws/lambda/${simpleHandlerFunction}
+      RetentionInDays: 90
