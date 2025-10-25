@@ -1,8 +1,8 @@
-# Lambda Playwright
+# Lambda SAM Playwright
 
 ## 概要
 
-AWS Lambda上でPlaywrightを実行するためのTypeScriptプロジェクトです。
+AWS Lambda上でPlaywrightを実行するためのTypeScriptプロジェクト。デプロイはAWS SAMを使用。
 
 ## 利用技術
 
@@ -12,7 +12,7 @@ AWS Lambda上でPlaywrightを実行するためのTypeScriptプロジェクト�
   - pnpm
 - AWS
   - AWS Lambda
-  - AWS SAM (Serverless Application Model)
+  - AWS SAM
 - Playwright
 
 ## ドキュメント
