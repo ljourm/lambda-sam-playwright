@@ -58,27 +58,29 @@ Resources:
     Properties:
       BucketName: !Ref BucketName
 
-  simpleHandlerFunction:
+  HealthFunction:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: simple-handler.handler
+      FunctionName: !Sub "${ProjectName}-${Environment}-health"
+      Handler: index.handler
       Timeout: 10
-      Description: Simple handler for local test
+      Description: Health check function
       Events:
         Api:
           Type: Api
           Properties:
-            Path: /simple
+            Path: /health
             Method: GET
     Metadata:
       <<: *EsbuildSharedMetadata
       BuildProperties:
         <<: *EsbuildSharedBuildProperties
         EntryPoints:
-          - ./src/handlers/simple-handler.ts
+          - ./src/functions/health/index.ts
 
-  TestFuncLogGroup:
+  # ロググループは自動作成されないため、全ての関数に対応するロググループを手動で作成する
+  HealthFunctionLogGroup:
     Type: AWS::Logs::LogGroup
     Properties:
-      LogGroupName: !Sub /aws/lambda/${simpleHandlerFunction}
+      LogGroupName: !Sub /aws/lambda/${HealthFunction}
       RetentionInDays: 90

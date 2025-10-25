@@ -40,7 +40,7 @@ sam build
 ### 単体関数のローカル実行
 
 ```sh
-sam local invoke simpleHandlerFunction
+sam local invoke HealthFunction
 ```
 
 ### API Gatewayエミュレーション
