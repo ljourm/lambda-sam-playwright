@@ -15,6 +15,6 @@ jobs:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/setup
       - name: Run prettier
-        run: yarn lint:fmt
+        run: pnpm lint:fmt
       - name: Run eslint
-        run: yarn lint:js
+        run: pnpm lint:js
