@@ -5,6 +5,15 @@ import { defineConfig } from "eslint/config";
 import tseslint from "typescript-eslint";
 import eslintConfigPrettier from "eslint-config-prettier/flat";
 
+const IGNORE_PATTERNS = [
+  "node_modules/",
+  "pnpm-lock.yaml",
+  "dest/",
+  ".aws-sam/",
+  "*.log",
+  "*.tsbuildinfo",
+];
+
 export default defineConfig(
   eslint.configs.recommended,
   tseslint.configs.recommended,
@@ -13,5 +22,8 @@ export default defineConfig(
     rules: {
       "comma-dangle": ["error", "always-multiline"],
     },
+  },
+  {
+    ignores: IGNORE_PATTERNS,
   },
 );
