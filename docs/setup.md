@@ -11,13 +11,13 @@
 
 ## 使用ツールの導入
 
-| ツール                                                                                                               | 導入方法                                                                                                                | 備考                                          |
-| -------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | --------------------------------------------- |
-| [Volta](https://volta.sh/)                                                                                           | [公式を参照](https://docs.volta.sh/guide/getting-started)                                                               |                                               |
-| [Node](https://nodejs.org/ja)                                                                                        | `volta install node@22.21.0`                                                                                            |                                               |
-| [pnpm](https://pnpm.io/ja/)                                                                                          | `volta install pnpm`                                                                                                    |                                               |
-| [esbuild](https://esbuild.github.io/)                                                                                | `pnpm install -g esbuild`                                                                                               | sam buildのためにグローバルインストールが必要 |
-| [AWS SAM CLI](https://docs.aws.amazon.com/ja_jp/serverless-application-model/latest/developerguide/what-is-sam.html) | [公式を参照](https://docs.aws.amazon.com/ja_jp/serverless-application-model/latest/developerguide/install-sam-cli.html) |                                               |
+| ツール | 導入方法 | 備考 |
+| -- | -- | -- |
+| [Volta](https://volta.sh/)| [公式を参照](https://docs.volta.sh/guide/getting-started)||
+| [Node](https://nodejs.org/ja)| `volta install node@22.21.0`||
+| [pnpm](https://pnpm.io/ja/)| `volta install pnpm`||
+| [esbuild](https://esbuild.github.io/)| `pnpm install -g esbuild`| sam buildのためにグローバルインストールが必要 |
+| [AWS SAM CLI](https://docs.aws.amazon.com/ja_jp/serverless-application-model/latest/developerguide/what-is-sam.html) | [公式を参照](https://docs.aws.amazon.com/ja_jp/serverless-application-model/latest/developerguide/install-sam-cli.html) ||
 
 ## セットアップ手順
 
