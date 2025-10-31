@@ -14,9 +14,15 @@ importers:
       '@types/aws-lambda':
         specifier: ^8.10.156
         version: 8.10.156
+      '@types/ejs':
+        specifier: ^3.1.5
+        version: 3.1.5
       '@types/node':
         specifier: ^24.9.1
         version: 24.9.1
+      esbuild:
+        specifier: ^0.25.11
+        version: 0.25.11
       eslint:
         specifier: ^9.38.0
         version: 9.38.0
@@ -38,6 +44,20 @@ importers:
       typescript-eslint:
         specifier: ^8.46.2
         version: 8.46.2(eslint@9.38.0)(typescript@5.9.3)
+
+  src/containers/playwright-runner: {}
+
+  src/functions/health:
+    devDependencies:
+      esbuild:
+        specifier: ^0.25.11
+        version: 0.25.11
+
+  src/functions/slack-notification:
+    devDependencies:
+      esbuild:
+        specifier: ^0.25.11
+        version: 0.25.11
 
 packages:
 
@@ -265,6 +285,9 @@ packages:
 
   '@types/aws-lambda@8.10.156':
     resolution: {integrity: sha512-LElQP+QliVWykC7OF8dNr04z++HJCMO2lF7k9HuKoSDARqhcjHq8MzbrRwujCSDeBHIlvaimbuY/tVZL36KXFQ==}
+
+  '@types/ejs@3.1.5':
+    resolution: {integrity: sha512-nv+GSx77ZtXiJzwKdsASqi+YQ5Z7vwHsTP0JY2SiQgjGckkBRKZnk8nIM+7oUZ1VCtuTz0+By4qVR7fqzp/Dfg==}
 
   '@types/estree@1.0.8':
     resolution: {integrity: sha512-dWHzHa2WqEXI/O1E9OjrocMTKJl2mSrEolh1Iomrv6U+JuNwaHXsXx9bLu5gG7BUWFIN0skIQJQ/L1rIex4X6w==}
@@ -925,6 +948,8 @@ snapshots:
       fastq: 1.19.1
 
   '@types/aws-lambda@8.10.156': {}
+
+  '@types/ejs@3.1.5': {}
 
   '@types/estree@1.0.8': {}
 

@@ -4,18 +4,6 @@ Description: >-
 Transform:
   - AWS::Serverless-2016-10-31
 
-# ESBuildを使ってビルドするための共通設定
-# https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-using-build-typescript.html
-Metadata: &EsbuildSharedMetadata
-  BuildMethod: esbuild
-  BuildProperties: &EsbuildSharedBuildProperties
-    Format: esm
-    Minify: false
-    Target: es2022
-    OutExtension:
-      - .js=.mjs
-    Sourcemap: true
-
 Parameters:
   ProjectName:
     Type: String
@@ -73,11 +61,7 @@ Resources:
             Path: /health
             Method: GET
     Metadata:
-      <<: *EsbuildSharedMetadata
-      BuildProperties:
-        <<: *EsbuildSharedBuildProperties
-        EntryPoints:
-          - ./src/functions/health/index.ts
+      BuildMethod: makefile
 
   # ロググループは自動作成されないため、全ての関数に対応するロググループを手動で作成する
   HealthFunctionLogGroup:

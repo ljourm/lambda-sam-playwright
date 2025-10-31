@@ -16,12 +16,16 @@
     "lint:fmt": "prettier --check .",
     "fix": "run-p fix:*",
     "fix:js": "eslint --fix",
-    "fix:fmt": "prettier --write ."
+    "fix:fmt": "prettier --write .",
+    "build:ts": "pnpm tsx build.ts",
+    "build:sam": "sam build"
   },
   "devDependencies": {
     "@eslint/js": "^9.38.0",
     "@types/aws-lambda": "^8.10.156",
+    "@types/ejs": "^3.1.5",
     "@types/node": "^24.9.1",
+    "esbuild": "^0.25.11",
     "eslint": "^9.38.0",
     "eslint-config-prettier": "^10.1.8",
     "npm-run-all2": "^8.0.4",
