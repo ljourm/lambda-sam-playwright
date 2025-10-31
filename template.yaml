@@ -5,6 +5,7 @@ Transform:
   - AWS::Serverless-2016-10-31
 
 # ESBuildを使ってビルドするための共通設定
+# https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-using-build-typescript.html
 Metadata: &EsbuildSharedMetadata
   BuildMethod: esbuild
   BuildProperties: &EsbuildSharedBuildProperties
