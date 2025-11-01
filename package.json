@@ -17,6 +17,7 @@
     "fix": "run-p fix:*",
     "fix:js": "eslint --fix",
     "fix:fmt": "prettier --write .",
+    "build": "pnpm run build:ts && pnpm run build:sam",
     "build:ts": "pnpm tsx build.ts",
     "build:sam": "sam build"
   },
