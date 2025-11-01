@@ -94,6 +94,24 @@ Resources:
       RetentionInDays: 90
   # ---- Slack Notification Function end ----
 
+  # ---- Playwright Runner Function start ----
+  PlaywrightRunnerFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub "${ProjectName}-${Environment}-playwright-runner"
+      Description: Playwright runner function
+      PackageType: Image
+    Metadata:
+      Dockerfile: Dockerfile
+      DockerContext: ./src/containers/playwright-runner/
+      DockerTag: 1.0.0
+  PlaywrightRunnerFunctionLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub /aws/lambda/${PlaywrightRunnerFunction}
+      RetentionInDays: 90
+  # ---- Playwright Runner Function end ----
+
   S3InputBucket:
     Type: AWS::S3::Bucket
     Properties:

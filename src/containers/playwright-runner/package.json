@@ -3,7 +3,7 @@
   "packageManager": "npm@9.6.7",
   "type": "module",
   "scripts": {
-    "build": "esbuild src/index.ts --bundle --minify --sourcemap --platform=node --target=es2022 --outfile=dist/index.js --external:playwright-core"
+    "build": "esbuild src/index.ts --bundle --minify --sourcemap --platform=node --target=es2022 --outfile=dist/index.js --packages=external"
   },
   "dependencies": {
     "chromium-bidi": "^10.6.1",
