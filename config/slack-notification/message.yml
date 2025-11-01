@@ -1,0 +1,16 @@
+success:
+  channel: "#sandbox"
+  srcText: |
+    こんにちは、<%= userName %>さん
+
+test:
+  channel: "#sandbox"
+  srcText: |
+    テストメッセージです。
+    これはSlack通知のテストメッセージです。
+
+unknown:
+  channel: "#sandbox"
+  srcText: |
+    不明なステータスが発生しました。
+    詳細を確認してください。

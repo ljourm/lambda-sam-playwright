@@ -19,6 +19,10 @@ Parameters:
     AllowedValues:
       - prd
       - stg
+  SlackToken:
+    Type: String
+  SLACK_NO_SEND:
+    Type: String
 
 # https://docs.aws.amazon.com/ja_jp/serverless-application-model/latest/developerguide/sam-specification-template-anatomy-globals.html
 Globals:
@@ -44,6 +48,7 @@ Globals:
 
 # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resources-section-structure.html
 Resources:
+  # ---- Health Check Function start ----
   HealthFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -57,13 +62,37 @@ Resources:
             Method: GET
     Metadata:
       BuildMethod: makefile
-
-  # ロググループは自動作成されないため、全ての関数に対応するロググループを手動で作成する
   HealthFunctionLogGroup:
     Type: AWS::Logs::LogGroup
     Properties:
       LogGroupName: !Sub /aws/lambda/${HealthFunction}
       RetentionInDays: 90
+  # ---- Health Check Function end ----
+
+  # ---- Slack Notification Function start ----
+  SlackNotificationFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub "${ProjectName}-${Environment}-slack-notification"
+      Description: Slack notification function
+      Environment:
+        Variables:
+          SLACK_TOKEN: !Ref SlackToken
+          SLACK_NO_SEND: !Ref SLACK_NO_SEND
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: /slack-notification
+            Method: GET
+    Metadata:
+      BuildMethod: makefile
+  SlackNotificationFunctionLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub /aws/lambda/${SlackNotificationFunction}
+      RetentionInDays: 90
+  # ---- Slack Notification Function end ----
 
   S3InputBucket:
     Type: AWS::S3::Bucket
