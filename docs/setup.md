@@ -18,6 +18,7 @@
 | [pnpm](https://pnpm.io/ja/)| `volta install pnpm`||
 | [esbuild](https://esbuild.github.io/)| `pnpm install -g esbuild`| sam buildのためにグローバルインストールが必要 |
 | [AWS SAM CLI](https://docs.aws.amazon.com/ja_jp/serverless-application-model/latest/developerguide/what-is-sam.html) | [公式を参照](https://docs.aws.amazon.com/ja_jp/serverless-application-model/latest/developerguide/install-sam-cli.html) ||
+| [Docker](https://www.docker.com/ja-jp/) | [Docker Desktopを参照](https://www.docker.com/ja-jp/products/docker-desktop/) ||
 
 ## セットアップ手順
 
@@ -25,6 +26,12 @@
 2. 依存パッケージをインストールする
    ```sh
    pnpm install
+   ```
+3. ローカル用のenvファイルの作成
+   ```sh
+   # STG環境のパラメータを編集
+   cp .env.sample .env.local
+   # -> .env.localを修正
    ```
 
 ## ビルド
@@ -40,11 +47,11 @@ sam build
 ### 単体関数のローカル実行
 
 ```sh
-sam local invoke HealthFunction
+sam local invoke HealthFunction --parameter-overrides $(cat .env.local)
 ```
 
 ### API Gatewayエミュレーション
 
 ```sh
-sam local start-api
+sam local start-api --parameter-overrides $(cat .env.local)
 ```
