@@ -1,0 +1,16 @@
+{
+  "name": "playwright-runner",
+  "packageManager": "npm@9.6.7",
+  "type": "module",
+  "scripts": {
+    "build": "esbuild src/index.ts --bundle --minify --sourcemap --platform=node --target=es2022 --outfile=dist/index.js --external:playwright-core"
+  },
+  "dependencies": {
+    "chromium-bidi": "^10.6.1",
+    "playwright-core": "^1.56.1"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.157",
+    "esbuild": "^0.25.11"
+  }
+}
