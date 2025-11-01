@@ -20,14 +20,17 @@ Parameters:
       - prd
       - stg
 
+# https://docs.aws.amazon.com/ja_jp/serverless-application-model/latest/developerguide/sam-specification-template-anatomy-globals.html
 Globals:
   Function:
     MemorySize: 128
     Runtime: nodejs22.x
     Tracing: Active
+    Timeout: 3
     Architectures:
       - arm64
     CodeUri: ./
+    Handler: index.handler
     LoggingConfig:
       LogFormat: JSON
     Environment:
@@ -39,20 +42,12 @@ Globals:
   Api:
     TracingEnabled: true
 
-# Resources declares the AWS resources that you want to include in the stack
 # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resources-section-structure.html
 Resources:
-  S3InputBucket:
-    Type: AWS::S3::Bucket
-    Properties:
-      BucketName: !Ref BucketName
-
   HealthFunction:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: !Sub "${ProjectName}-${Environment}-health"
-      Handler: index.handler
-      Timeout: 10
       Description: Health check function
       Events:
         Api:
@@ -69,3 +64,8 @@ Resources:
     Properties:
       LogGroupName: !Sub /aws/lambda/${HealthFunction}
       RetentionInDays: 90
+
+  S3InputBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Ref BucketName
