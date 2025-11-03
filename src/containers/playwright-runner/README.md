@@ -59,7 +59,7 @@ docker buildx build --platform linux/arm64 --provenance=false -t ${IMAGE_NAME} .
 docker run --rm --platform linux/arm64 -p 9000:8080 -v $(pwd)/output:/app/output -e OUTPUT_TYPE=FILE ${IMAGE_NAME}
 
 # Lambda関数の呼び出し (別のターミナルを立ち上げ、本リポジトリのルート直下で実行)
-curl "http://localhost:9000/2015-03-31/functions/function/invocations" -d @event/playwright-runner/base.json
+curl "http://localhost:9000/2015-03-31/functions/function/invocations" -d @events/playwright-runner/base.json
 ```
 
 ### ローカルでテストできないこと
