@@ -48,8 +48,8 @@ Globals:
 
 # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resources-section-structure.html
 Resources:
-  # ---- Health Check Function start ----
-  HealthFunction:
+  # ---- ApiHealth Check Function start ----
+  ApiHealthFunction:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: !Sub "${ProjectName}-${Environment}-health"
@@ -62,12 +62,12 @@ Resources:
             Method: GET
     Metadata:
       BuildMethod: makefile
-  HealthFunctionLogGroup:
+  ApiHealthFunctionLogGroup:
     Type: AWS::Logs::LogGroup
     Properties:
-      LogGroupName: !Sub /aws/lambda/${HealthFunction}
+      LogGroupName: !Sub /aws/lambda/${ApiHealthFunction}
       RetentionInDays: 90
-  # ---- Health Check Function end ----
+  # ---- ApiHealth Check Function end ----
 
   # ---- Slack Notification Function start ----
   SlackNotificationFunction:

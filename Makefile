@@ -1,5 +1,5 @@
-build-HealthFunction:
-	cp dist/functions/health/index.js $(ARTIFACTS_DIR)/
+build-ApiHealthFunction:
+	cp dist/functions/api-health/index.js $(ARTIFACTS_DIR)/
 
 build-SlackNotificationFunction:
 	cp dist/functions/slack-notification/index.js $(ARTIFACTS_DIR)/

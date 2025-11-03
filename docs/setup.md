@@ -47,7 +47,7 @@ sam build
 ### 単体関数のローカル実行
 
 ```sh
-sam local invoke HealthFunction --parameter-overrides $(cat .env.local)
+sam local invoke ApiHealthFunction --parameter-overrides $(cat .env.local)
 ```
 
 ### API Gatewayエミュレーション
