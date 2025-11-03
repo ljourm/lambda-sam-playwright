@@ -34,6 +34,8 @@ Globals:
     CodeUri: ./
     LoggingConfig:
       LogFormat: JSON
+    EventInvokeConfig:
+      MaximumRetryAttempts: 0
     Environment:
       Variables:
         NODE_OPTIONS: --enable-source-maps
