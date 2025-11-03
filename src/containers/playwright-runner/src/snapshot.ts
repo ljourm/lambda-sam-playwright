@@ -21,6 +21,10 @@ export const snapshots = async (
   await page.setViewportSize({ width: target.width, height: VIEWPORT_HEIGHT });
   const response = await page.goto(url, { waitUntil: "networkidle" });
 
+  // スクロールしてLazy Load対策 (最下部までスクロールして1秒待機)
+  await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+  await page.waitForTimeout(1000);
+
   // 200〜200、404以外はエラー終了とする
   if (!isSuccessfulStatus(response?.status())) {
     throw new Error(`Failed to load URL: ${url}, status: ${response?.status()}`);
