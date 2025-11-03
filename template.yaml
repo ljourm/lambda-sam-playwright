@@ -8,9 +8,6 @@ Parameters:
   ProjectName:
     Type: String
     Default: "lambda-sam-playwright"
-  BucketName:
-    Type: String
-    Default: "lambda-sam-playwright-input-bucket"
   CreatedBy:
     Type: String
     Default: "sam-cli"
@@ -30,13 +27,11 @@ Parameters:
 Globals:
   Function:
     MemorySize: 128
-    Runtime: nodejs22.x
     Tracing: Active
     Timeout: 3
     Architectures:
       - arm64
     CodeUri: ./
-    Handler: index.handler
     LoggingConfig:
       LogFormat: JSON
     Environment:
@@ -59,6 +54,8 @@ Resources:
     Properties:
       FunctionName: !Sub "${ProjectName}-${Env}-health"
       Description: Health check function
+      Runtime: nodejs22.x
+      Handler: index.handler
       Events:
         Api:
           Type: Api
@@ -80,9 +77,18 @@ Resources:
     Properties:
       FunctionName: !Sub "${ProjectName}-${Env}-v1-snapshot"
       Description: V1 snapshot function
+      Runtime: nodejs22.x
+      Handler: index.handler
       Environment:
         Variables:
           PLAYWRIGHT_RUNNER_FUNCTION_NAME: !Sub "${ProjectName}-${Env}-playwright-runner"
+      Policies:
+        - Version: "2012-10-17"
+          Statement:
+            - Effect: Allow
+              Action:
+                - lambda:InvokeFunction
+              Resource: !Sub "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:${ProjectName}-${Env}-playwright-runner"
       Events:
         Api:
           Type: Api
@@ -104,6 +110,8 @@ Resources:
     Properties:
       FunctionName: !Sub "${ProjectName}-${Env}-slack-notification"
       Description: Slack notification function
+      Runtime: nodejs22.x
+      Handler: index.handler
       Environment:
         Variables:
           SLACK_TOKEN: !Ref SlackToken
@@ -130,6 +138,13 @@ Resources:
       FunctionName: !Sub "${ProjectName}-${Env}-playwright-runner"
       Description: Playwright runner function
       PackageType: Image
+      Policies:
+        - Version: "2012-10-17"
+          Statement:
+            - Effect: Allow
+              Action:
+                - s3:PutObject
+              Resource: !Sub "arn:aws:s3:::${ProjectName}-${Env}-snapshot/*"
     Metadata:
       Dockerfile: Dockerfile
       DockerContext: ./src/containers/playwright-runner/
@@ -141,7 +156,24 @@ Resources:
       RetentionInDays: 90
   # ---- Playwright Runner Function end ----
 
-  S3InputBucket:
+  S3SnapshotBucket:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: !Ref BucketName
+      BucketName: !Sub "${ProjectName}-${Env}-snapshot"
+      Tags:
+        - Key: Project
+          Value: !Ref ProjectName
+        - Key: CreatedBy
+          Value: !Ref CreatedBy
+      LifecycleConfiguration:
+        Rules:
+          - Status: Enabled
+            ExpirationInDays: 365
+
+Outputs:
+  ApiHealthFunctionApi:
+    Description: "API Gateway URL for ApiHealthFunction"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/api/health"
+  ApiV1SnapshotFunctionApi:
+    Description: "API Gateway URL for ApiV1SnapshotFunction"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/api/v1/snapshot"

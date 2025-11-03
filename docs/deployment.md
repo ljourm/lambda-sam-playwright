@@ -29,3 +29,21 @@ sam deploy --profile ${PROFILE_NAME} --config-env stg --parameter-overrides $(ca
 # PRD環境にデプロイ
 sam deploy --profile ${PROFILE_NAME} --config-env prd --parameter-overrides $(cat .env.prd)
 ```
+
+## デプロイ後の動作確認
+
+OutputにAPIのURLが出力されるので、それを使用する。
+
+※ 以下では `wb0a1tw3t5` を使用するが、そこは毎回変更される。
+
+### health
+
+```sh
+curl https://wb0a1tw3t5.execute-api.ap-northeast-1.amazonaws.com/Prod/api/health
+```
+
+### snapshot
+
+```sh
+curl -X POST https://wb0a1tw3t5.execute-api.ap-northeast-1.amazonaws.com/Prod/api/v1/snapshot -d "{\"baseUrl\":\"https://example.com/\",\"targets\":[{\"path\":\"/\",\"width\":1200},{\"path\":\"/\",\"width\":480},{\"path\":\"/articles/\",\"width\":1200},{\"path\":\"/articles/\",\"width\":480}]}"
+```
