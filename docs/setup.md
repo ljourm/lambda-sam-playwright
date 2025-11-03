@@ -48,6 +48,7 @@ sam build
 
 ```sh
 sam local invoke ApiHealthFunction --parameter-overrides $(cat .env.local)
+sam local invoke ApiV1SnapshotFunction --parameter-overrides $(cat .env.local) --event events/api-v1-snapshot/base.json
 ```
 
 ### API Gatewayエミュレーション

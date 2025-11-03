@@ -39,6 +39,7 @@ Globals:
       LogFormat: JSON
     Environment:
       Variables:
+        NODE_OPTIONS: --enable-source-maps
         ENV: !Ref Env
     Tags:
       Project: !Ref ProjectName
@@ -68,6 +69,30 @@ Resources:
       LogGroupName: !Sub /aws/lambda/${ApiHealthFunction}
       RetentionInDays: 90
   # ---- ApiHealth Check Function end ----
+
+  # ---- ApiV1Snapshot Function start ----
+  ApiV1SnapshotFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub "${ProjectName}-${Environment}-v1-snapshot"
+      Description: V1 snapshot function
+      Environment:
+        Variables:
+          PLAYWRIGHT_RUNNER_FUNCTION_NAME: !Sub "${ProjectName}-${Environment}-playwright-runner"
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: /api/v1/snapshot
+            Method: POST
+    Metadata:
+      BuildMethod: makefile
+  ApiV1SnapshotFunctionLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub /aws/lambda/${ApiV1SnapshotFunction}
+      RetentionInDays: 90
+  # ---- ApiV1Snapshot Check Function end ----
 
   # ---- Slack Notification Function start ----
   SlackNotificationFunction:
