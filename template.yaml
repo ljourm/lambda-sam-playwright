@@ -21,7 +21,7 @@ Parameters:
       - stg
   SlackToken:
     Type: String
-  SLACK_NO_SEND:
+  SlackNoSend:
     Type: String
 
 # https://docs.aws.amazon.com/ja_jp/serverless-application-model/latest/developerguide/sam-specification-template-anatomy-globals.html
@@ -78,7 +78,7 @@ Resources:
       Environment:
         Variables:
           SLACK_TOKEN: !Ref SlackToken
-          SLACK_NO_SEND: !Ref SLACK_NO_SEND
+          SLACK_NO_SEND: !Ref SlackNoSend
       Events:
         Api:
           Type: Api
