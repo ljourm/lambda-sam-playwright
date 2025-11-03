@@ -20,7 +20,7 @@ AWS Lambda上でPlaywrightを実行するためのTypeScriptプロジェクト�
 
 - [開発環境の構築](./docs/setup.md)
 - (TODO) 開発ルール
-- (TODO) デプロイ手順
+- [デプロイ手順](./docs/deployment.md)
 - (TODO) TIPS
 
 ## 環境構成図

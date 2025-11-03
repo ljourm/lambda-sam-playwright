@@ -21,8 +21,10 @@ Parameters:
       - stg
   SlackToken:
     Type: String
+    Default: ""
   SlackNoSend:
     Type: String
+    Default: ""
 
 # https://docs.aws.amazon.com/ja_jp/serverless-application-model/latest/developerguide/sam-specification-template-anatomy-globals.html
 Globals:
@@ -46,6 +48,8 @@ Globals:
       CreatedBy: !Ref CreatedBy
   Api:
     TracingEnabled: true
+    # Stageの生成を無効化するために設定、OpenAPIは使用していない: https://docs.aws.amazon.com/ja_jp/serverless-application-model/latest/developerguide/sam-resource-api.html#sam-api-openapiversion
+    OpenApiVersion: 3.0.2
 
 # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resources-section-structure.html
 Resources:
@@ -53,7 +57,7 @@ Resources:
   ApiHealthFunction:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: !Sub "${ProjectName}-${Environment}-health"
+      FunctionName: !Sub "${ProjectName}-${Env}-health"
       Description: Health check function
       Events:
         Api:
@@ -74,11 +78,11 @@ Resources:
   ApiV1SnapshotFunction:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: !Sub "${ProjectName}-${Environment}-v1-snapshot"
+      FunctionName: !Sub "${ProjectName}-${Env}-v1-snapshot"
       Description: V1 snapshot function
       Environment:
         Variables:
-          PLAYWRIGHT_RUNNER_FUNCTION_NAME: !Sub "${ProjectName}-${Environment}-playwright-runner"
+          PLAYWRIGHT_RUNNER_FUNCTION_NAME: !Sub "${ProjectName}-${Env}-playwright-runner"
       Events:
         Api:
           Type: Api
@@ -98,7 +102,7 @@ Resources:
   SlackNotificationFunction:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: !Sub "${ProjectName}-${Environment}-slack-notification"
+      FunctionName: !Sub "${ProjectName}-${Env}-slack-notification"
       Description: Slack notification function
       Environment:
         Variables:
@@ -123,7 +127,7 @@ Resources:
   PlaywrightRunnerFunction:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: !Sub "${ProjectName}-${Environment}-playwright-runner"
+      FunctionName: !Sub "${ProjectName}-${Env}-playwright-runner"
       Description: Playwright runner function
       PackageType: Image
     Metadata:
