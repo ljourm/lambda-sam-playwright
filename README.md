@@ -23,6 +23,11 @@ AWS Lambda上でPlaywrightを実行するためのTypeScriptプロジェクト�
 - (TODO) デプロイ手順
 - (TODO) TIPS
 
+## 環境構成図
+
+![環境構成図](./docs/architecture.svg)
+[環境構成図 - 元データ(draw.io)](./docs/architecture.drawio)
+
 ## Lambda関数
 
 |関数名|ランタイム|概要|README|
