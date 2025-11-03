@@ -58,7 +58,7 @@ Resources:
         Api:
           Type: Api
           Properties:
-            Path: /health
+            Path: /api/health
             Method: GET
     Metadata:
       BuildMethod: makefile
