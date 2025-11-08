@@ -1,10 +1,10 @@
 <mxfile host="65bd71144e">
     <diagram id="4R--MOeFsxBFM0oROPrH" name="Page-1">
-        <mxGraphModel dx="1702" dy="1076" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="792" dy="437" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
-                <mxCell id="82" value="" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=none;" vertex="1" parent="1">
+                <mxCell id="82" value="" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=none;" parent="1" vertex="1">
                     <mxGeometry width="1400" height="760" as="geometry"/>
                 </mxCell>
                 <mxCell id="9" value="AWS Cloud" style="sketch=0;outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=12;fontStyle=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_aws_cloud;strokeColor=#AAB7B8;fillColor=none;verticalAlign=top;align=left;spacingLeft=30;fontColor=#AAB7B8;dashed=0;" parent="1" vertex="1">
@@ -209,7 +209,7 @@
                 <mxCell id="73" value="AWS Samにて構築" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=none;" parent="1" vertex="1">
                     <mxGeometry x="80" y="400" width="160" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="74" value="Terraformにて構築" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=none;" parent="1" vertex="1">
+                <mxCell id="74" value="Terraformにて構築&lt;div&gt;(予定)&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=none;" parent="1" vertex="1">
                     <mxGeometry x="80" y="460" width="160" height="40" as="geometry"/>
                 </mxCell>
                 <mxCell id="80" value="" style="group" parent="1" vertex="1" connectable="0">
