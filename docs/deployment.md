@@ -18,6 +18,12 @@ cp .env.sample .env.prd
 # -> .env.prdを修正
 ```
 
+### ビルド
+
+```sh
+pnpm build
+```
+
 ### デプロイ
 
 ```sh
