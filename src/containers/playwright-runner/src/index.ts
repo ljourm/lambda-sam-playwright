@@ -15,7 +15,16 @@ export const handler = async (event: PlaywrightRunnerEvent, context: Context): P
 
   const { baseUrl, timestamp, targets, loopCount = 0 } = event;
 
-  const browser = await chromium.launch();
+  const browser = await chromium.launch({
+    headless: true,
+    args: [
+      "--no-sandbox",
+      "--disable-setuid-sandbox",
+      "--disable-dev-shm-usage",
+      "--disable-gpu",
+      "--no-zygote",
+    ],
+  });
   const s3KeyPrefix = getS3KeyPrefix(baseUrl, timestamp);
 
   const snapshotAndSave = async (target: PlaywrightRunnerTarget) => {
