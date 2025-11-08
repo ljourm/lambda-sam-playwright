@@ -14,7 +14,7 @@ FROM public.ecr.aws/lambda/nodejs:22
 ENV NODE_OPTIONS=--enable-source-maps
 
 # ビルド時と実行時でユーザーが異なり、ブラウザのパスが一致しない問題を回避するため、パスを固定
-ENV PLAYWRIGHT_BROWSERS_PATH=/var/task/.cache/ms-playwright
+ENV PLAYWRIGHT_BROWSERS_PATH=/opt/playwright
 
 # Playwrightの依存ライブラリをインストール
 RUN dnf install -y \
